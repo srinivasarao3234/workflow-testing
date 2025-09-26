@@ -38,10 +38,12 @@ jobs:
 
       - name: Install Docker Compose v1 on EC2
         run: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_URL "
-          sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) \
+          sudo curl -sSL https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) \
           -o /usr/local/bin/docker-compose &&
-          sudo chmod +x /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose &&
+          docker-compose --version
           "
+
 
       - name: Run docker-compose on EC2
         run: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_URL "cd project && docker-compose up --build -d && docker ps -a"
