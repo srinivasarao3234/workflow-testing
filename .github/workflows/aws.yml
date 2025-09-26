@@ -36,6 +36,12 @@ jobs:
       - name: Clone project on EC2
         run: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_URL "git clone https://github.com/srinivasarao3234/workflow-testing.git project || (cd project && git pull)"
 
+      - name: Install Docker Compose v2 on EC2
+        run: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_URL "
+          sudo apt-get update -y &&
+          sudo apt-get install -y docker-compose-plugin
+          "
+
       - name: Run docker compose on EC2
         run: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_URL "cd project && docker-compose up --build -d && docker ps -a"
 
