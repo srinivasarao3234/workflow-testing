@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  web:
+    image: nginx:alpine
+    container_name: my_web
+    ports:
+      - "80:80"   # expose container port 80 to EC2 port 80
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+    restart: always
